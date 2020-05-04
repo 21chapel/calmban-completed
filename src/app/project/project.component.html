@@ -1,0 +1,39 @@
+
+<calm-header></calm-header>
+
+<div class="mb-8"></div>
+
+<calm-scroll-area>
+    <calm-board *ngIf="(hash$ | async) as hash">
+
+        <calm-task-column title="not Started">
+
+            <div
+                id="notStarted"
+                cdkDropList
+                (cdkDropListDropped)="drop($event)"
+                #notStarted="cdkDropList"
+                class="min-h-screen"
+                [cdkDropListData]="hash.notStarted"
+                [cdkDropListConnectedTo]="[inProgress]">
+
+            <calm-task-list [tasks]="hash.notStarted"></calm-task-list>
+            </div>
+        </calm-task-column>
+
+        <calm-task-column [title]="'in progress'">
+
+            <div
+                    id="inProgress"
+                    cdkDropList
+                    (cdkDropListDropped)="drop($event)"
+                    #inProgress="cdkDropList"
+                    class="min-h-screen"
+                    [cdkDropListData]="hash.inProgress"
+                    [cdkDropListConnectedTo]="[notStarted]">
+            <calm-task-list [tasks]="hash.inProgress"></calm-task-list>
+            </div>
+        </calm-task-column>
+
+    </calm-board>
+</calm-scroll-area>
